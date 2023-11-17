@@ -135,26 +135,29 @@ const plus =
 ;
 
 
-const testss= <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k'/>
+// for (let index = 1; index <= 7; index++) {
+// const ballcount = <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k' indexs="5" />
+  
+// }
 
-console.log(testss);
+
+// for (let index = 1; index <= 7; index++) {
+//   // Making the API request
+  // const ballCountResponse = <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k' indexs="5" />;
+
+//  <Text>{ballCountResponse}</Text>
+// }   
+
   const tabContent = [
                     <View key={0} style={StyleBall.tab_ball}>
                       <View style={StyleBall.ball_group}>
                           <View style={StyleBall.ballContainer}>
                         <View>
-                    </View>                 
-
-                    
-                    {/* <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k'/> */}
-
-                           {<BallWithText text="火/牛" count="35" imageSource={require('../../assets/icons/ball_red.png')} />}
-                           {<BallWithText text="火/牛" count="25" imageSource={require('../../assets/icons/ball_red.png')} />}
-                           {<BallWithText text="火/牛" count="6" imageSource={require('../../assets/icons/ball_red.png')} />}
-                           {<BallWithText text="火/牛" count="85" imageSource={require('../../assets/icons/ball_red.png')} />}
-                           {<BallWithText text="火/牛" count="15" imageSource={require('../../assets/icons/ball_red.png')} />}
-                           {plus}
-                           {<BallWithText text="火/牛" count="15" imageSource={require('../../assets/icons/ball_red.png')} />}
+                    </View>  
+                  
+                    <Text>
+                    <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k' indexs="5" />
+                    </Text>
 
                        </View>
                       </View>
