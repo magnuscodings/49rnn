@@ -13,9 +13,10 @@ import FloaterBottom from '../../components/FloaterBottom';
 // import { imageArray,textArray } from '../../constant/AppConstants'; // Import the set you need
 
 // TEST API
-import { Request_Balls,aaaa } from '../../components/request/test'; // Import the set you need
+import { Request_Balls,Request_LotteryDate } from '../../components/request/balls'; // Import the set you need
 
-import { DEFUALT_JSAM } from '../../constant/ApiConstants'; // Import the set you need
+import { DEFUALT_JSAM, DEFUALT_TABS } from '../../constant/ApiConstants'; // Import the set you need
+import { Tabs } from '../../components/request/tabs';
 
 const Gallery = () => {
 
@@ -48,28 +49,23 @@ const Gallery = () => {
   ];
 
 
-  const tabNames = ['澳彩\n08月09日开奖', 
-                    '港彩 \n08月10日开奖', 
-                    '台彩\n08月11日开奖',
-                     '新彩\n08月10日开奖'
-                    ];
+  const tabNames = 
+  [ <Tabs apiUrl={DEFUALT_TABS} keyname="0" />,
+  <Tabs apiUrl={DEFUALT_TABS} keyname="1" />,
+  <Tabs apiUrl={DEFUALT_TABS} keyname="2" />,
+  <Tabs apiUrl={DEFUALT_TABS} keyname="3" />];
+
+  
+  // ['澳彩\n08月09日开奖', 
+  // '港彩 \n08月10日开奖', 
+  // '台彩\n08月11日开奖',
+  //   '新彩\n08月10日开奖'
+  // ]
 
 // jump here
 // ball tab
 
-const BallWithText = ({ text, imageSource,count }) => {
-  return (
-   
 
-      <View>
-      <View style={StyleBall.ballGroup}>
-        <Image source={imageSource} style={StyleBall.ballImage} />
-        <Text style={StyleBall.centeredText}>{count}</Text>
-      </View>
-      <Text style={styles.buttonText}>{text}</Text>
-      </View>
-  );
-};
 
 const styles2 = StyleSheet.create({
   container: {
@@ -134,19 +130,37 @@ const plus =
     )
 ;
 
-
-// for (let index = 1; index <= 7; index++) {
-// const ballcount = <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k' indexs="5" />
-  
-// }
+<Text>
+<Request_LotteryDate apiUrl = "https://h5.49217007.com:8443/unite49/app/index/lotteryTime" keyname = "data" />
+</Text>
 
 
-// for (let index = 1; index <= 7; index++) {
-//   // Making the API request
-  // const ballCountResponse = <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k' indexs="5" />;
 
-//  <Text>{ballCountResponse}</Text>
-// }   
+//  const apiUrl = "https://h5.49217007.com:8443/unite49/app/index/lotteryTime"
+//  const keyname = "data"
+//  const [data, setData] = useState([]);
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       const response = await fetch(apiUrl);
+//       const result = await response.json();
+//       console.log(result); // Log the parsed JSON data
+
+//       const LotteryDay = new Date(result.data.list[0].key).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
+
+//       setData(LotteryDay); // Update state with fetched data
+//       // console.log(result.data.list[0].lotteryTime)
+
+
+
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   };
+
+//   fetchData();
+// }, [apiUrl]);
 
   const tabContent = [
                     <View key={0} style={StyleBall.tab_ball}>
@@ -154,6 +168,12 @@ const plus =
                           <View style={StyleBall.ballContainer}>
                         <View>
                     </View>  
+
+                    <Text>
+
+                      
+                 
+                    </Text>
                   
                     <Text>
                     <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k' indexs="5" />
@@ -185,20 +205,21 @@ const plus =
     <ImageSlider imageUrls={images} paginationBottom={35} />
 
     <View style={{flexDirection:'row',marginTop:-25 }}>
-      <TouchableOpacity style={styles.volume_button}>
-      <Feather name="volume-2" size={24} color="red" />
+      <TouchableOpacity style={styles.volume_button} >
+      <Image style={{width:20,height:15}} source={require('../../assets/icons/ic_red_horn.png')}  />
       </TouchableOpacity>
 
       <MarqueeView
       autoPlay={true}
       playing={true}
         style={{
+          padding:5,
           backgroundColor: 'white',
           color: 'black',
           width: '100%',
         }}>
       <View style={{ backgroundColor: 'white' }}>
-        <Text style={{fontSize:16}}>
+        <Text style={{fontSize:12,color:'gray'}}>
         新增书籍图纸如下 新公开一肖  澳门特码一书 澳门彩霸王 澳门特码一肖 澳门特平宝典 澳门波叔报特 普京赌侠报特 澳门综合资料 澳门精品书刊 澳门玄机来料 澳门白小姐透特 澳门五行白姐 澳门五行玄机 澳门彩王玄机 澳门六合透特 澳门预测玄机 澳门包金来料 澳门绝杀来料 澳门直通车 澳门金牌半波 澳门金刚金 澳门穿云箭 澳门玄机一特 澳门猴王猴 澳门十拿九稳 澳门最新白姐特 澳门白姐暴肖 澳门十二少 澳门六合暴特 澳门凤凰阁 澳门宝典特码 澳门金宝宝 澳门金元宝 澳门内部透密 澳门一波一肖 澳门六合冠军 澳门喜气洋洋 澳门包中六码 澳门平特王中正 澳门平天下 澳门金宝典 澳门传密心水 澳门银宝典 澳门铜宝典 澳门八仙宝典   澳门全集六合 澳门宝典三中三   澳门全集心水     澳门六合皇心水    澳门六合皇宝典 澳门天王宝典    澳门梅花一肖 澳门铁观音 澳门黄金一码 澳门传密一码 澳门特码帝 澳门主攻五码 澳门万花筒 澳门大老板 澳门玲珑一肖 澳门一肖六码 澳门望子成龙 澳门精选葡京 澳门葡京三码 澳门特码旺 澳门预测生肖 澳门主平特肖 澳门发财波 澳门九龙宝典 澳门九龙心水 澳门特典六肖 澳门济公十八码 澳门传真玄机 澳门宝典平特 澳门春秋宝典 澳门战斗机 澳门金钱豹 澳门狗头铡 澳门无字天书 澳门锦囊宝典 澳门白姐锦囊 澳门赌王天书白姐直通车 澳门期期送金 澳门九龙天书 澳门东北虎 澳门一霸 澳门心水赌侠 澳门一肖黄金 澳门黄金金龙 澳门单吊一肖 澳门钻石十五码 澳门风水平特 澳门六合风水 澳门一点通 澳门定乾坤 澳门飞龙宝典 澳门金手指 澳门乾坤宝典
 请广大彩民收藏，49图库有您更精彩。
         </Text>
@@ -355,6 +376,9 @@ const styles = StyleSheet.create({
     height:45,
     width:45,
   },
+  ic_horn:{
+    width:22,
+  },
   container_group_1: {
     marginTop:20,
     flex: 1,
@@ -399,8 +423,10 @@ const styles = StyleSheet.create({
   },
   volume_button:{
     backgroundColor:'white',
-    width:25,
     marginLeft:2,
+    width:40,
+    alignItems:'center',
+    padding:5
   },
   tab_content:{
     height:120,
@@ -410,5 +436,5 @@ const styles = StyleSheet.create({
     borderBottomEndRadius:10,
     borderBottomStartRadius:10,
   },
-
+  
 })
