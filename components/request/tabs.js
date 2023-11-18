@@ -65,3 +65,5 @@ function formatToMonthDate(dateString,keyname) {
   }
 }
 
+
+export default Tabs;

@@ -17,9 +17,12 @@ export const Request_Balls = ({ apiUrl, keyname }) => {
         const response = await fetch(apiUrl);
         const result = await response.json();
 
+        console.log(JSON.stringify(result));
         if (keyname in result) {
           const dataArray = result[keyname].split(',');
           setData(dataArray);
+          console.log(data);
+
         } else {
           console.error(`Key '${keyname}' not found in API response.`);
         }
@@ -36,30 +39,73 @@ export const Request_Balls = ({ apiUrl, keyname }) => {
       {data.map((item, index) => {
          const parsedItem = parseInt(item)-1;
          const isValidIndex = !isNaN(parsedItem) && parsedItem >= 0 && parsedItem < ballConverter.length;
-         if (index > 0 && index <= 7 && isValidIndex) {
+         if (index > 0 && index <= 9  && isValidIndex) {
 
          const ballanimal=  ballConverter[parsedItem].animal;
          const ballelement=  ballConverter[parsedItem].element;
          const ballvalue=  ballConverter[parsedItem].value;
-         
-
          if (ballvalue === "1") {
-           imagesrc = ballRed;
-         } else if (ballvalue ==="2") {
-           imagesrc = ballBlue;
-         } else if (ballvalue === "3") {
-           imagesrc = ballGreen;
+          imagesrc = ballRed;
+        } else if (ballvalue ==="2") {
+          imagesrc = ballBlue;
+        } else if (ballvalue === "3") {
+          imagesrc = ballGreen;
+        }
+
+
+         if(index == 7 ){
+          return (
+
+            <View>
+              <BallText/>
+            </View>
+          );
+         }else if(index == 9 ){
+          const items = (data[7])
+
+          const parsedItem = parseInt(items)-1;
+
+          const ballanimal=  ballConverter[parsedItem].animal;
+          const ballelement=  ballConverter[parsedItem].element;
+          const ballvalue=  ballConverter[parsedItem].value;
+         
+          if (ballvalue === "1") {
+            imagesrc = ballRed;
+          } else if (ballvalue ==="2") {
+            imagesrc = ballBlue;
+          } else if (ballvalue === "3") {
+            imagesrc = ballGreen;
+          }
+          return (
+
+            <View>
+
+              <BallWithText
+              key={index-2}
+              text={ballanimal+"/"+ballelement+">"}
+              count={data[index-2]}
+              imageSource={imagesrc}
+            />
+            
+
+            </View>
+          );
+         }else{
+          return (
+
+           <View>
+             <BallWithText
+              key={index}
+              text={ballanimal+"/"+ballelement}
+              count={item}
+              imageSource={imagesrc}
+            />
+           </View>
+
+          );
          }
-
-         return (
-
-          <BallWithText
-            key={index}
-            text={ballelement+"/"+ballanimal+">"}
-            count={item}
-            imageSource={imagesrc}
-          />
-        );
+       
+         
 
         } 
       })}
@@ -81,17 +127,40 @@ const BallWithText = ({ text, imageSource,count }) => {
       </View>
   );
 };
+const BallText = ({ }) => {
+  return (
+      <View style={StyleBall.ballPlus}>
+        <Image source={require('../../assets/icons/jiahao.png')} style={StyleBall.plusImage} />
+      </View>
+      
+  );
+};
+
 const StyleBall = StyleSheet.create({
   ballGroup: {
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
+  }, ballPlus: {
+    position: 'relative',
+    paddingTop:10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   ballImage: {
     // Adjust the styles for the ball image as needed
+  },plusImage: {
+    alignContent:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:20,
+    height:20
   },
   centeredText: {
     position: 'absolute',
+    fontWeight: "500",
+    paddingRight:3,
+    paddingBottom:2,
     color: 'black', // Adjust the text color as needed
     fontSize: 19, // Adjust the font size as needed
   }, ballContainer: {
@@ -114,7 +183,7 @@ const StyleBall = StyleSheet.create({
   },
   ballText: {
     marginTop: 5,
-    fontSize: 14,
+    fontSize: 10,
     textAlign: 'center',
   },
 });

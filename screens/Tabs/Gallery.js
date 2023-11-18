@@ -7,8 +7,14 @@ import ImageSlider from '../../components/ImageSlider'
 import MarqueeView from 'react-native-marquee-view';
 import CustomTabs from '../../components/CustomTabs';
 import CustomFab from '../../components/CustomFab';
-import FloaterBottom from '../../components/FloaterBottom';
 
+import FloaterBottom from '../../components/FloaterBottom';
+import { LogBox } from 'react-native';
+
+
+// tanggalin nalang pag kaya na idebug
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 // IMAGES
 // import { imageArray,textArray } from '../../constant/AppConstants'; // Import the set you need
 
@@ -55,15 +61,6 @@ const Gallery = () => {
   <Tabs apiUrl={DEFUALT_TABS} keyname="2" />,
   <Tabs apiUrl={DEFUALT_TABS} keyname="3" />];
 
-  
-  // ['澳彩\n08月09日开奖', 
-  // '港彩 \n08月10日开奖', 
-  // '台彩\n08月11日开奖',
-  //   '新彩\n08月10日开奖'
-  // ]
-
-// jump here
-// ball tab
 
 
 
@@ -99,7 +96,20 @@ const StyleBall = StyleSheet.create({
     position: 'absolute',
     color: 'green', // Adjust the text color as needed
     fontSize: 19, // Adjust the font size as needed
-  }, ballContainer: {
+  },
+  countdownContainer:{
+    marginBottom:15,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+  },
+  countdownTextGreen:{
+    fontSize: 15, color: 'green'
+  },
+  countdownTextRed:{
+    fontSize: 15, color: 'red'
+  },
+  ballContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
@@ -111,7 +121,6 @@ const StyleBall = StyleSheet.create({
     borderBottomStartRadius:10,
   },
   ball_group: {
-    marginTop:15,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -120,15 +129,7 @@ const StyleBall = StyleSheet.create({
 });
 
 
-const plus = 
-    (
-      <View>
-        <View style={StyleBall.centeredText}>
-          <Text style={StyleBall.centeredText}>+</Text>
-        </View>
-      </View>
-    )
-;
+
 
 <Text>
 <Request_LotteryDate apiUrl = "https://h5.49217007.com:8443/unite49/app/index/lotteryTime" keyname = "data" />
@@ -136,56 +137,25 @@ const plus =
 
 
 
-//  const apiUrl = "https://h5.49217007.com:8443/unite49/app/index/lotteryTime"
-//  const keyname = "data"
-//  const [data, setData] = useState([]);
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const response = await fetch(apiUrl);
-//       const result = await response.json();
-//       console.log(result); // Log the parsed JSON data
-
-//       const LotteryDay = new Date(result.data.list[0].key).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
-
-//       setData(LotteryDay); // Update state with fetched data
-//       // console.log(result.data.list[0].lotteryTime)
-
-
-
-//     } catch (error) {
-//       console.error('Error fetching data:', error);
-//     }
-//   };
-
-//   fetchData();
-// }, [apiUrl]);
 
   const tabContent = [
                     <View key={0} style={StyleBall.tab_ball}>
                       <View style={StyleBall.ball_group}>
-                          <View style={StyleBall.ballContainer}>
-                        <View>
-                    </View>  
 
-                    <Text>
-
-                      
-                 
-                    </Text>
-                  
-                    <Text>
-                    <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k' indexs="5" />
-                    </Text>
-
-                       </View>
+                        <View style={StyleBall.countdownContainer}>
+                          <Text style={StyleBall.countdownTextGreen}>第 12345 期</Text>
+                          <Text style={[StyleBall.countdownTextRed, styles.mr45]}> 距下期开奖:12:34:01</Text>
+                          <Text style={StyleBall.countdownTextGreen}>查看历史记录</Text>
                       </View>
 
 
-                  
-                        
-                        </View>,
+                          <View style={StyleBall.ballContainer}>
+                            <Request_Balls apiUrl={DEFUALT_JSAM} keyname='k' indexs="5" />
+                          </View>
+                          
+                         </View>
+
+                    </View>,
                       <View key={1}  style={styles.tab_content}>
                         <Text>Content  for Tab 2</Text>
                       </View>,
@@ -340,7 +310,6 @@ const plus =
 }
 
 // jump here
-export default Gallery
 
 const styles = StyleSheet.create({
   footer: {
@@ -436,5 +405,10 @@ const styles = StyleSheet.create({
     borderBottomEndRadius:10,
     borderBottomStartRadius:10,
   },
+  mr45:{
+  marginRight:45,
+  }
   
 })
+
+export default Gallery
