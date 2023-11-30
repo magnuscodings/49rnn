@@ -1,5 +1,5 @@
 // Import the necessary modules
-import React, { useState, useEffect,useRef  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { StyleSheet,Image, Alert, Platform,TouchableOpacity } from 'react-native'
 import ballRed from '../../assets/icons/ball_red.png';
@@ -13,8 +13,6 @@ import Gallery from '../../screens/Tabs/Gallery';
 
 export const Request_Balls = ({ apiUrl, keyname }) => {
   const [data, setData] = useState([]);
-  const requestBallsRef = useRef('request'); // Create a ref for the Request_Balls component
-  const yourComponentRef = useRef(null); // This is your reference
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +38,7 @@ export const Request_Balls = ({ apiUrl, keyname }) => {
 
   return (
     <>
-    <View ref={requestBallsRef}>
+    <View>
       <View style={StyleBall.countdownContainer}>
         <Text style={StyleBall.countdownTextBlack}> 第<Text style={StyleBall.countdownTextGreen}>{data[0]}</Text> 期</Text>
         <Text style={[StyleBall.countdownTextRed , StyleBall.mr25]}> 距下期开奖:12:34:01</Text>
@@ -123,13 +121,12 @@ export const Request_Balls = ({ apiUrl, keyname }) => {
       })}
     </View>
     <View style={StyleBall.cameraContainer}>
-      <TouchableOpacity >
+    <TouchableOpacity onPress={handleImageClick}>
+
       <Image source={require('../../assets/icons/ic_camera.webp')} style={[StyleBall.ic_camera]} />
       </TouchableOpacity>
       <Text style={[StyleBall.cameraTextRed]}> 第{data[8]}期 2023/{data[9]}/{data[10]} 星期 -  {data[12]}</Text>
-      <TouchableOpacity >
       <Image source={require('../../assets/icons/ic_full.webp')} style={[StyleBall.ic_full, StyleBall.mr14 ]} />
-      </TouchableOpacity>
     </View>
     </>
   );
@@ -146,7 +143,7 @@ const handleImageClick = async () => {
       }
 
       // Capture the screenshot of a specific component or screen
-      const uri = await captureRef(yourComponentRef.current, {
+      const uri = await captureRef(requestBallsRef, {
         format: 'png', // You can change the format to JPEG, etc.
       });
 
@@ -158,31 +155,6 @@ const handleImageClick = async () => {
       Alert.alert('Error', 'Failed to take a screenshot: ' + error);
     }
   };
-
- 
-const captureScreenshot = async () => {
- 
-  try {
- 
-    const screenshotURI = await captureRef(this.captureViewRef, {
- 
-      format: 'jpg',
- 
-      quality: 0.8,
- 
-    });
- 
-    // Use the screenshotURI as needed (e.g., save to device, share, etc.)
- 
-    console.log('Screenshot captured:', screenshotURI);
- 
-  } catch (error) {
- 
-    console.error('Error capturing screenshot:', error);
- 
-  }
- 
-};
 
 export const BallWithText = ({ text, imageSource,count }) => {
   return (

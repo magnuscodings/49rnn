@@ -2,22 +2,21 @@ import { StyleSheet, Text, View,ScrollView, TouchableOpacity,Image,ImageBackgrou
 import React, { useState,useEffect } from 'react';
 import MarqueeText from 'react-native-marquee-ab';
 import { MaterialIcons,MaterialCommunityIcons, Ionicons, AntDesign, Entypo,Feather, FontAwesome5 } from '@expo/vector-icons';
-
+import { NavigationContainer } from '@react-navigation/native';
 import ImageSlider from '../../components/ImageSlider'
 import MarqueeView from 'react-native-marquee-view';
 import CustomTabs from '../../components/CustomTabs';
 import CustomFab from '../../components/CustomFab';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import FloaterBottom from '../../components/FloaterBottom';
 import { LogBox } from 'react-native';
 
+const Stack = createStackNavigator();
 
 // tanggalin nalang pag kaya na idebug
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
-// IMAGES
-// import { imageArray,textArray } from '../../constant/AppConstants'; // Import the set you need
-
 // TEST APIs
 import { Request_Balls,Request_LotteryDate } from '../../components/request/balls'; // Import the set you need
 
@@ -26,6 +25,7 @@ import { Tabs } from '../../components/request/tabs';
 import { LinkRequest } from '../../components/request/getlinks';
 import { HomeImages } from '../../components/request/homeimages';
 import { OpenLink } from '../../components/Linking';
+import GalleryComponent from './GalleryTabs/openlink';
 
 
 export const Gallery = () => {
@@ -42,126 +42,12 @@ export const Gallery = () => {
   ];
   
 
-  
-
-  const imageArray = [
-    'https://tk2.jixingkaisuo.com:4949/m/col/222/ampgt.jpg',
-    'https://tk2.jixingkaisuo.com:4949/m/col/222/jx30m.jpg',
-    'https://tk2.jixingkaisuo.com:4949/m/col/222/jx30m.jpg',
-    'https://tk2.jixingkaisuo.com:4949/m/col/222/jx30m.jpg',
-    
-    // Add more image URLs here
-  ];
-
-  const textArray = [
-    'Text for Image 1',
-    'Text for Image 2',
-    'Text for Image 3', 
-    'Text for Image 4',
-    // Add more text entries here
-  ];
-
-
-
   const tabNames = 
   [ <Tabs apiUrl={link.DEFUALT_TABS} keyname="0" />,
   <Tabs apiUrl={link.DEFUALT_TABS} keyname="1" />,
   <Tabs apiUrl={link.DEFUALT_TABS} keyname="2" />,
   <Tabs apiUrl={link.DEFUALT_TABS} keyname="3" />
   ];
-
-
-
-
-  const styles2 = StyleSheet.create({
-    container: {
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    image_icon: {
-      width: 100, // Set the width of the image
-      height: 100, // Set the height of the image
-    },
-    buttonText: {
-      // Your text styles here
-      marginBottom: 50, // Adjust the margin as needed
-      textAlign: 'center',
-
-    },
-  });
-
-
-
-  const StyleBall = StyleSheet.create({
-    ballGroup: {
-      position: 'relative',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    ballImage: {
-      // Adjust the styles for the ball image as needed
-    },
-    centeredText: {
-      position: 'absolute',
-      color: 'green', // Adjust the text color as needed
-      fontSize: 19, // Adjust the font size as needed
-    },
-    countdownContainer:{
-      marginBottom:15,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-    },
-    
-    cameraContainer:{
-      marginTop:15,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-    },
-    cameraTextRed:{
-      fontSize: 14, color: 'red',paddingTop:3,
-    },
-    ic_camera:{
-      width:25,height:25
-    },
-    ic_full:{
-      width:20,height:20
-    },
-    countdownTextGreen:{
-      fontWeight: '500',
-      fontSize: 15, color: 'green'
-    },
-    countdownTextBlack:{
-      fontWeight: '500',
-      fontSize: 15, color: 'black'
-    },
-    countdownTextRed:{
-      fontWeight: '500',
-      fontSize: 15, color: 'red'
-    },
-    ballContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: '100%',
-    },
-    tab_ball:{
-      height:150,
-      backgroundColor:'white',
-      borderBottomEndRadius:10,
-      borderBottomStartRadius:10,
-    },
-    ball_group: {
-      paddingTop:25,
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'white',
-    }
-  });
-
-
-
 
 
   const tabContent = [
@@ -186,69 +72,6 @@ export const Gallery = () => {
       </View>
     </View>,
   ];
-
-  const links1 = [
-    { url: 'https://test1.com', text: '118图库' },
-    { url: 'https://test2.com', text: '123开奖' },
-    { url: 'https://test3.com', text: '王中王' },
-    { url: 'https://test4.com', text: '王中王' },
-    { url: 'https://test5.com', text: '王中王' },
-    { url: 'https://test9.com', text: '王中王' },
-    { url: 'https://test9.com', text: '王中王' },
-   
-  ];
-  const links2 = [
-    { url: 'https://test1.com', text: '118图库' },
-    { url: 'https://test2.com', text: '123开奖' },
-    { url: 'https://test2.com', text: '王中王' },
-    { url: 'https://test2.com', text: '澳彩网' },
-  ];
-  
-  // const LinkContainer = ({ links }) => {
-  //   const linkRows = [];
-  //   const linksPerRow = 4;
-  
-  //   for (let i = 0; i < links.length; i += linksPerRow) {
-  //     const rowLinks = links.slice(i, i + linksPerRow);
-  //     const row = (
-  //       <View key={i} style={styles3.row}>
-  //         {rowLinks.map((link, index) => (
-  //           <TouchableOpacity key={index} style={styles3.button}>
-  //             <OpenLink
-  //               url={link.url}
-  //               buttonStyle={{ backgroundColor: '#f5f5f5' }}
-  //               linkStyle={{ color: 'black' }}
-  //               text={link.text}
-  //             />
-  //           </TouchableOpacity>
-  //         ))}
-  //       </View>
-  //     );
-  //     linkRows.push(row);
-  //   }
-  
-  //   return <View>{linkRows}</View>;
-  // };
-  
-  // const styles3 = StyleSheet.create({
-  //   row: {
-  //     flexDirection: 'row',
-  //     justifyContent: 'space-between',
-  //   },
-  //   button: {
-  //     flex: 1,
-  //     margin: 5,
-  //   },
-  // });
-  
-  
-  
-  
-  
-
-
-
-  
    
   return (
     <>
@@ -300,45 +123,19 @@ export const Gallery = () => {
 
     <View style={styles.container_group_1}>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} key="hatdog">
-        <Image source={require('../../assets/icons/kaijiangxianchang.png')} style={styles.image_icon} />
-        <Text style={styles.buttonText}>开奖现场</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-        <Image source={require('../../assets/icons/ziliaodaquan.png')} style={styles.image_icon} />
-        <Text style={styles.buttonText}>资料大全</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-        <Image source={require('../../assets/icons/zixuntongji.png')} style={styles.image_icon} />
-        <Text style={styles.buttonText}>资讯统计</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-        <Image source={require('../../assets/icons/chaxunzhushou.png')} style={styles.image_icon} />
-        <Text style={styles.buttonText}>查询助手</Text>
-        </TouchableOpacity>
+        <GalleryComponent imagesource={require('../../assets/icons/kaijiangxianchang.png')} imagetext={'开奖现场'} keyname={'gallerytab1'} />
+        <GalleryComponent imagesource={require('../../assets/icons/ziliaodaquan.png')} imagetext={'资料大全'} keyname={'gallerytab2'} />
+        <GalleryComponent imagesource={require('../../assets/icons/zixuntongji.png')} imagetext={'资讯统计'} keyname={'gallerytab3'} />
+        <GalleryComponent imagesource={require('../../assets/icons/chaxunzhushou.png')} imagetext={'查询助手'} keyname={'gallerytab4'} />
       </View>
 
-      <View style={styles.buttonContainer2}>
-        <TouchableOpacity style={styles.button}>
-        <Image source={require('../../assets/icons/ymjc.png')} style={styles.image_icon} />
-        <Text style={styles.buttonText}>幽默猜测</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-        <Image source={require('../../assets/icons/liuhetuku.png')} style={styles.image_icon} />
-        <Text style={styles.buttonText}>六合图库</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-        <Image source={require('../../assets/icons/jiaoliudating.png')} style={styles.image_icon} />
-        <Text style={styles.buttonText}>高手论坛</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-        <Image source={require('../../assets/icons/gongjubaoxiang.png')} style={styles.image_icon} />
-        <Text style={styles.buttonText}>工具宝箱</Text>
-        </TouchableOpacity>
+      <View style={styles.buttonContainer3}>
+        <GalleryComponent imagesource={require('../../assets/icons/ymjc.png')} imagetext={'幽默猜测'} keyname={'gallerytab5'} />
+        <GalleryComponent imagesource={require('../../assets/icons/liuhetuku.png')} imagetext={'六合图库'} keyname={'gallerytab6'} />
+        <GalleryComponent imagesource={require('../../assets/icons/jiaoliudating.png')} imagetext={'高手论坛'} keyname={'gallerytab7'} />
+        <GalleryComponent imagesource={require('../../assets/icons/gongjubaoxiang.png')} imagetext={'工具宝箱'} keyname={'gallerytab8'} />
       </View>
     </View>    
-
-
 
 
     <View style={styles.stickycontainer} >
@@ -514,8 +311,8 @@ const styles = StyleSheet.create({
     width:22,
   },
   container_group_1: {
-    padding:10,
-    marginTop:7,
+    paddingTop:10,
+    paddingBottom:10,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -534,25 +331,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     marginTop:10,
+    paddingTop:25
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '95%',
   },
-  buttonContainer2: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '95%',
-    marginTop:20,
-  },
   buttonContainer3: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '95%',
-    marginTop:10,
-    height:'100%',
-    padding:10,
+    marginTop:20,
+    marginBottom: 10,
+
+  },
+  buttonContainer2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+
   },
   button: {
     alignItems: 'center',
@@ -590,12 +388,80 @@ const styles = StyleSheet.create({
     },
     responsiveHeight: {
       width: '100%',
-      aspectRatio: 16 / 23, // Set your desired aspect ratio
+      aspectRatio: 16 / 20, // Set your desired aspect ratio
       backgroundColor: 'white',
     },
   
 
   })
+
+const StyleBall = StyleSheet.create({
+  ballGroup: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ballImage: {
+    // Adjust the styles for the ball image as needed
+  },
+  centeredText: {
+    position: 'absolute',
+    color: 'green', // Adjust the text color as needed
+    fontSize: 19, // Adjust the font size as needed
+  },
+  countdownContainer:{
+    marginBottom:15,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+  },
+  
+  cameraContainer:{
+    marginTop:15,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+  },
+  cameraTextRed:{
+    fontSize: 14, color: 'red',paddingTop:3,
+  },
+  ic_camera:{
+    width:25,height:25
+  },
+  ic_full:{
+    width:20,height:20
+  },
+  countdownTextGreen:{
+    fontWeight: '500',
+    fontSize: 15, color: 'green'
+  },
+  countdownTextBlack:{
+    fontWeight: '500',
+    fontSize: 15, color: 'black'
+  },
+  countdownTextRed:{
+    fontWeight: '500',
+    fontSize: 15, color: 'red'
+  },
+  ballContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  tab_ball:{
+    height:150,
+    backgroundColor:'white',
+    borderBottomEndRadius:10,
+    borderBottomStartRadius:10,
+  },
+  ball_group: {
+    paddingTop:25,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  }
+});
 
 export default Gallery
 
