@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Image, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const ImageSlider = ({ imageUrls, slideWidth = Dimensions.get('window').width, slideHeight = 200, paginationBottom = 8, autoplayInterval = 3000 }) => {
+const ImageSlider = ({ imageUrls, slideWidth = Dimensions.get('window').width, slideHeight = 200, paginationBottom = 8, autoplayInterval = 1000 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const scrollViewRef = useRef(null);
   let autoplayTimer = null; // Declare autoplayTimer in the outer scope
@@ -46,6 +47,7 @@ const ImageSlider = ({ imageUrls, slideWidth = Dimensions.get('window').width, s
         }}
       >
         {imageUrls.map((imageUrl, index) => (
+          
           <View key={index} style={[styles.slide, { width: slideWidth, height: slideHeight }]}>
             <Image source={{ uri: imageUrl }} style={[styles.image, { width: slideWidth, height: '100%' }]} resizeMode="contain" />
           </View>

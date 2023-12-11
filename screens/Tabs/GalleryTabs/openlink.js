@@ -9,7 +9,7 @@ import ModalLiuheGallery from './content/LiuheGallery';
 import ModalExpertForum from './content/ExpertForum'; 
 import ModalToolChest from './content/ToolChest'; 
 
-export const GalleryComponent = ({ imagesource, imagetext, keyname }) => {
+export const GalleryComponent = ({ imagesource, imagetext, keyname ,imageList }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const openToNewScreen = () => {
@@ -23,7 +23,7 @@ export const GalleryComponent = ({ imagesource, imagetext, keyname }) => {
     var modal = '';
 
     if(keyname === 'gallerytab1'){
-        modal = <ModalLotterySite closeModal={closeNewScreen} />
+        modal = <ModalLotterySite imageList={imageList} closeModal={closeNewScreen} />
     }else if(keyname === 'gallerytab2'){
         modal = <ModalCompleteInformation closeModal={closeNewScreen} />
     }else if(keyname === 'gallerytab3'){

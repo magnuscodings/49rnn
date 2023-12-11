@@ -26,5 +26,9 @@ export const HOME_REQUEST_NC = "https://api.hongbaodianzi.com/unite49/app/index/
 
 
 
+// request History Lottery Balls
+// export const HISTORY_LOTTTERY = "https://h5.49217003.com:8443/unite49/h5/lottery/detail?id=20233383";
+export const HISTORY_LOTTTERY = "https://h5.49217003.com:8443/unite49/h5/lottery/detail?id=";
+
 
 export default DEFUALT_AUBALLS;

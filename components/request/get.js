@@ -11,9 +11,7 @@ export const getRequest = ({ apiUrl, keyname }) => {
         const response = await fetch(apiUrl);
         const result = await response.json();
         
-        // console.log(result); // Log the parsed JSON data
-        // console.log(keyname); // Log the provided keyname
-
+     
        
       } catch (error) {
         console.error('Error fetching data:', error);

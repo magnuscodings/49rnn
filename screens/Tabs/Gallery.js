@@ -18,7 +18,7 @@ const Stack = createStackNavigator();
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 // TEST APIs
-import { Request_Balls,Request_LotteryDate } from '../../components/request/balls'; // Import the set you need
+import { Request_Balls} from '../../components/request/balls'; // Import the set you need
 
 import * as link from '../../constant/ApiConstants'; // Import the set you need
 import { Tabs } from '../../components/request/tabs';
@@ -26,9 +26,39 @@ import { LinkRequest } from '../../components/request/getlinks';
 import { HomeImages } from '../../components/request/homeimages';
 import { OpenLink } from '../../components/Linking';
 import GalleryComponent from './GalleryTabs/openlink';
+import SliderBox from '../../components/SliderBox';
+
+
+
 
 
 export const Gallery = () => {
+const imagesRequest = "https://h5.49217003.com:8443/unite49/h5/index/uniteInfo?lotteryType=1";
+const [imageList, setImageList] = useState([]);
+const [imageListName, setImageListName] = useState([]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const imageResponse = await fetch(imagesRequest);
+      const resultRes = await imageResponse.json();
+      if (resultRes.data.listWheelAdvert.advertList.length > 0) {
+        const newImageList = resultRes.data.listWheelAdvert.advertList.map(element => element.imgPath);
+        const newImageListName = resultRes.data.listWheelAdvert.advertList.map(element => element.url);
+        setImageList(newImageList);
+        setImageListName(newImageListName);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+
+
+
 
   const images = [
     'https://jmz.qingxinmingxiang.com:4949/unite49files/amyd/2023/11/01/20231101114438--1759808080.jpg',
@@ -53,22 +83,22 @@ export const Gallery = () => {
   const tabContent = [
     <View key={0} style={StyleBall.tab_ball}>
       <View style={StyleBall.ball_group}>
-            <Request_Balls apiUrl={link.DEFUALT_AUBALLS} key={0} keyname='k' indexs="5" />
+            <Request_Balls apiUrl={link.DEFUALT_AUBALLS} key={232} keyname='k' indexs="5" />
       </View>
     </View>,
     <View key={1} style={StyleBall.tab_ball}>
       <View style={StyleBall.ball_group}>
-            <Request_Balls apiUrl={link.DEFUALT_HKBALLS} key={1} keyname='k' indexs="5" />
+            <Request_Balls apiUrl={link.DEFUALT_HKBALLS} key={21} keyname='k' indexs="5" />
       </View>
     </View>,
       <View key={2} style={StyleBall.tab_ball}>
       <View style={StyleBall.ball_group}>
-            <Request_Balls apiUrl={link.DEFUALT_TWBALLS} key={2} keyname='k' indexs="5" />
+            <Request_Balls apiUrl={link.DEFUALT_TWBALLS} key={23} keyname='k' indexs="5" />
       </View>
     </View>,
       <View key={3} style={StyleBall.tab_ball}>
       <View style={StyleBall.ball_group}>
-            <Request_Balls apiUrl={link.DEFUALT_NCBALLS} key={3} keyname='k' indexs="5" />
+            <Request_Balls apiUrl={link.DEFUALT_NCBALLS} key={1131} keyname='k' indexs="5" />
       </View>
     </View>,
   ];
@@ -76,8 +106,9 @@ export const Gallery = () => {
   return (
     <>
        <ScrollView style={{ flex: 1 }}>
-    <View style={{top:-30}}>
-    <ImageSlider imageUrls={images} paginationBottom={35} />
+    <View style={{top:-35}}>
+      <SliderBox images={imageList} imageListName = {imageListName} />
+    {/* <ImageSlider imageUrls={imageList} paginationBottom={35} /> */}
 
       <View style={{flexDirection:'row',marginTop:-25 }}>
         <TouchableOpacity style={styles.volume_button} >
@@ -109,7 +140,8 @@ export const Gallery = () => {
 
 
     <View style={{marginTop:-35,padding:10,backgroundColor:'white'}}>
-    <CustomTabs tabs={tabNames} content={tabContent}/>
+    
+      <CustomTabs tabs={tabNames} content={tabContent}/>
 
     <View style={linkbutton.linkMainContainer}>
     <LinkRequest apiUrl={link.LINK_AU} keyname='k'/>
@@ -123,7 +155,7 @@ export const Gallery = () => {
 
     <View style={styles.container_group_1}>
       <View style={styles.buttonContainer}>
-        <GalleryComponent imagesource={require('../../assets/icons/kaijiangxianchang.png')} imagetext={'开奖现场'} keyname={'gallerytab1'} />
+        <GalleryComponent imagesource={require('../../assets/icons/kaijiangxianchang.png')} imagetext={'开奖现场'} imageList={imageList} keyname={'gallerytab1'} />
         <GalleryComponent imagesource={require('../../assets/icons/ziliaodaquan.png')} imagetext={'资料大全'} keyname={'gallerytab2'} />
         <GalleryComponent imagesource={require('../../assets/icons/zixuntongji.png')} imagetext={'资讯统计'} keyname={'gallerytab3'} />
         <GalleryComponent imagesource={require('../../assets/icons/chaxunzhushou.png')} imagetext={'查询助手'} keyname={'gallerytab4'} />
@@ -194,7 +226,7 @@ export const Gallery = () => {
     </View>   
 
         <View style={[styles.responsiveHeight,{ backgroundColor: 'white' }]}>
-        <ScrollView nestedScrollEnabled={true}> 
+        <ScrollView  nestedScrollEnabled={true}> 
            <HomeImages apiUrl={link.HOME_REQUEST_AU} />
 
           </ScrollView>

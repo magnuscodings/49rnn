@@ -11,10 +11,11 @@ import * as Permissions from 'expo-permissions';
 import { ballConverter } from '../../constant/AppConstants'; 
 import Gallery from '../../screens/Tabs/Gallery';
 
-export const Request_Balls = ({ apiUrl, keyname }) => {
+export const Request_Balls = ({ apiUrl, keyname, hidecamera  }) => {
   const [data, setData] = useState([]);
   const requestBallsRef = useRef('request'); // Create a ref for the Request_Balls component
   const yourComponentRef = useRef(null); // This is your reference
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +44,15 @@ export const Request_Balls = ({ apiUrl, keyname }) => {
     <View ref={requestBallsRef}>
       <View style={StyleBall.countdownContainer}>
         <Text style={StyleBall.countdownTextBlack}> 第<Text style={StyleBall.countdownTextGreen}>{data[0]}</Text> 期</Text>
-        <Text style={[StyleBall.countdownTextRed , StyleBall.mr25]}> 距下期开奖:12:34:01</Text>
+        <Text style={[StyleBall.countdownTextRed]}>
+  {!hidecamera && (
+    <Text>
+      距下期开奖: 12:34:01
+    </Text>
+  )}
+   
+</Text>
+
         <Text style={StyleBall.countdownTextGreen}>查看历史记录</Text>
       </View>
     </View>
@@ -122,15 +131,23 @@ export const Request_Balls = ({ apiUrl, keyname }) => {
         } 
       })}
     </View>
-    <View style={StyleBall.cameraContainer}>
-      <TouchableOpacity >
-      <Image source={require('../../assets/icons/ic_camera.webp')} style={[StyleBall.ic_camera]} />
-      </TouchableOpacity>
-      <Text style={[StyleBall.cameraTextRed]}> 第{data[8]}期 2023/{data[9]}/{data[10]} 星期 -  {data[12]}</Text>
-      <TouchableOpacity >
-      <Image source={require('../../assets/icons/ic_full.webp')} style={[StyleBall.ic_full, StyleBall.mr14 ]} />
-      </TouchableOpacity>
-    </View>
+    
+        <View style={StyleBall.cameraContainer}>
+        {!hidecamera && (
+          <TouchableOpacity>
+            <Image source={require('../../assets/icons/ic_camera.webp')} style={[StyleBall.ic_camera]} />
+          </TouchableOpacity>
+       )}
+
+          <Text style={[StyleBall.cameraTextRed]}> 第{data[8]}期 2023/{data[9]}/{data[10]} 星期 -  {data[12]}</Text>
+          
+          {!hidecamera && (
+            <TouchableOpacity>
+              <Image source={require('../../assets/icons/ic_full.webp')} style={[StyleBall.ic_full, StyleBall.mr14]} />
+            </TouchableOpacity>
+           )}
+
+        </View>
     </>
   );
 };
@@ -219,21 +236,23 @@ const StyleBall = StyleSheet.create({
   },countdownContainer:{
     marginBottom:15,
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       width: '100%',
   },cameraContainer:{
     marginTop:15,
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       width: '100%',
   },
   cameraTextRed:{
-    fontSize: 14, color: 'red',paddingTop:3,
+    fontSize: 14, color: 'red',paddingBottom:3,
   },
   ic_camera:{
+    marginRight:40,
     width:25,height:25
   },
   ic_full:{
+    marginLeft:40,
     width:20,height:20
   },
   mr25:{
@@ -242,10 +261,11 @@ const StyleBall = StyleSheet.create({
       marginRight:14,
       },
   countdownTextGreen:{
-    fontWeight: '500',
+      fontWeight: '500',
     fontSize: 15, color: 'green'
   },
   countdownTextBlack:{
+    
     fontWeight: '500',
     fontSize: 15, color: 'black'
   },
@@ -274,7 +294,7 @@ const StyleBall = StyleSheet.create({
     fontSize: 24, // Adjust the font size as needed
   }, ballContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     width: '100%',
   },
   tab_ball:{
