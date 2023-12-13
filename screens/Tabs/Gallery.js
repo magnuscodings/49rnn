@@ -145,8 +145,6 @@ useEffect(() => {
 
     <View style={linkbutton.linkMainContainer}>
     <LinkRequest apiUrl={link.LINK_AU} keyname='k'/>
-
-      {/* <LinkContainer key={0} links = {links1} /> */}
    </View>
    </View>
 
