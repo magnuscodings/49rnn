@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Dimensions,Linking } from 'react-native';
 import { SliderBox } from 'react-native-image-slider-box';
-import OpenLink from './Linking';
 
-const ImageSlider = ({ images ,imageListName}) => {
+const ImageSlider = ({ images, imageListName, height = 230 }) => {
   const [width, setWidth] = useState(Dimensions.get('window').width);
+  const [sliderHeight, setSliderHeight] = useState(height);
 
+  useEffect(() => {
+    setSliderHeight(height || 230); // Set the height to prop value or default (230)
+  }, [height]);
 //  console.log(imageListName)
 
   return (
@@ -16,7 +19,7 @@ const ImageSlider = ({ images ,imageListName}) => {
         }
         // currentImageEmitter={(index) => console.warn(`current pos is: ${index}`)}
         parentWidth={width} // Use the width state
-        sliderBoxHeight={230}
+        sliderBoxHeight={sliderHeight}
         resizeMethod={'resize'}
         resizeMode={'contain'}
         circleLoop={true}

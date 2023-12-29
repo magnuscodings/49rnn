@@ -12,6 +12,7 @@ export const HeaderWithBackButton = ({ title, closeModal }) => {
       </TouchableOpacity>
 
       <Text style={styles.headerText}>{title}</Text>
+      <Text style={styles.headerText}>{}</Text>
     </View>
   );
 };
@@ -19,14 +20,14 @@ export const HeaderWithBackButton = ({ title, closeModal }) => {
 
 export const HeaderWithBackButtonRight = ({ title, closeModal }) => {
   return (
-    <View style={styles.header}>
-      <TouchableOpacity onPress={closeModal} style={styles.backButton}>
+    <View style={styles.header1}>
+      <TouchableOpacity onPress={closeModal} >
         <AntDesign name="arrowleft" size={24} color="black" />
       </TouchableOpacity>
 
       <Text style={styles.headerText}>{title}</Text>
 
-      <TouchableOpacity onPress={closeModal} style={styles.backButton2}>
+      <TouchableOpacity onPress={closeModal} >
         <Image source={calendar}  />
       </TouchableOpacity>
 
@@ -50,7 +51,7 @@ export const HeaderWithBackButtonRightRight = ({ title, closeModal }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.backButton3}>
-            <Image source={calendar} />
+            <Image style={styles.calendar} source={calendar} />
             <Text style={styles.backText}>搜索</Text>
           </TouchableOpacity>
       </View>
@@ -61,7 +62,8 @@ export const HeaderWithBackButtonRightRight = ({ title, closeModal }) => {
 
 
 const styles = StyleSheet.create({
-  header: {
+  header1: 
+  {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -70,35 +72,66 @@ const styles = StyleSheet.create({
     height: 50, // Set a fixed height or adjust accordingly
     paddingHorizontal: 16, // Add padding for better spacing
   },
-  headerText: {
+  header: 
+  {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Use space-between for better distribution
+    backgroundColor: '#fff',
+    height: 50, // Set a fixed height or adjust accordingly
+    paddingHorizontal: 16, // Add padding for better spacing
+  },
+  row:
+  {
+    flexDirection: 'row',
+    alignContent : 'center',
+  },
+  headerText: 
+  {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     alignSelf: 'end', // Centers the text vertically
   },
-  backButton: {
+  backButton: 
+  {
     // Adjust styles if needed
   },
-  buttonContainer: {
+  buttonContainer: 
+  {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  backButton2: {
+  backButton2: 
+  {
+    textAlign:'center',
     flexDirection: 'column',
     marginLeft: 'auto', // Pushes the button to the right end
     marginRight: 5,
   },
-  backButton3: {
+  backButton3:
+   {
     flexDirection: 'column',
     alignItems: 'center',
     marginRight: 0,
   },
-  search: {
-    width: 30,
-    height: 30,
+  search: 
+  {
+    alignSelf:'center',
+    width: 20,
+    height: 20,
     marginTop: 6, // Add margin for text spacing
   },
-  buttonText: {
+  calendar: 
+  {
+    alignSelf:'center',
+    width: 24,
+    height: 24,
+    marginTop: 2, // Add margin for text spacing
+  },
+  buttonText: 
+  {
     fontSize: 12,
   },
   backText:

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, View, TouchableOpacity, Text, StyleSheet, Dimensions, Modal } from 'react-native';
 import { HeaderWithBackButtonRightRight } from './HeaderBackButton';
 import RefreshControlComponent from './RefreshControl';
+import FlatListWithPullToRefresh from './FlatListCompleteInformation';
 
 const numColumns = 3;
 
@@ -19,7 +20,9 @@ const FlatListButtons = ({ apiUrl, keyname }) => {
     setModalVisible(false);
   };
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }) =>
+  {
+
     return (
       <View style={[styles.item, { width: Dimensions.get('window').width / numColumns }]}>
         <TouchableOpacity
@@ -43,7 +46,8 @@ const FlatListButtons = ({ apiUrl, keyname }) => {
   <View >
     <View style={styles.modalView}>
       <HeaderWithBackButtonRightRight title={selectedItem} closeModal={hideModal} />
-      <RefreshControlComponent/>
+        <FlatListWithPullToRefresh link = {"https://h5.49217009.com:8443/unite49/h5/article/search?type=4&articleTypeId=7362&pageNum=1&pageSize=10"}/>
+      {/* <RefreshControlComponent/> */}
     </View>
   </View>
 </Modal>
@@ -78,7 +82,6 @@ const FlatListButtons = ({ apiUrl, keyname }) => {
         keyExtractor={item => item.key}
         numColumns={numColumns}
       />
-
       {modal}
     </View>
   );

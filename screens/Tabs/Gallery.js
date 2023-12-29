@@ -140,9 +140,7 @@ useEffect(() => {
 
 
     <View style={{marginTop:-35,padding:10,backgroundColor:'white'}}>
-    
       <CustomTabs tabs={tabNames} content={tabContent}/>
-
     <View style={linkbutton.linkMainContainer}>
     <LinkRequest apiUrl={link.LINK_AU} keyname='k'/>
    </View>
@@ -226,7 +224,6 @@ useEffect(() => {
         <View style={[styles.responsiveHeight,{ backgroundColor: 'white' }]}>
         <ScrollView  nestedScrollEnabled={true}> 
            <HomeImages apiUrl={link.HOME_REQUEST_AU} />
-
           </ScrollView>
         </View>
 
